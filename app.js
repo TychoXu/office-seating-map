@@ -1,110 +1,15 @@
-const defaultSeats = {
-  A1:'Cecilia', A2:'Summer', A3:'', A4:'Will', A5:'考赛尔', A6:'Lu Qian',
-  B1:'Rhea', B2:'Nicole', B3:'Tycho', B4:'Ruby', B5:'Saga', B6:'Leo', B7:'Frank', B8:'',
-  C1:'Leeo', C2:'Qinrui Liu', C3:'Clarie', C4:'Sylvia', C5:'Kaisen', C6:'Tycho', C7:'Eva', C8:'Bubble',
-  D1:'Weijie Liu', D2:'空位', D3:'Sophie', D4:'空位', D5:'Wendy', D6:'空位', D7:'Fiona', D8:'空位',
-  R1:'Cathy', R2:'Tracy'
-};
-const groupSeats = {
-  A:['A4','A1','A2','A5','A6'],
-  B:['B1','B2','B3','B4','B5','B6','B7','B8'],
-  C:['C1','C2','C3','C4','C5','C6','C7','C8'],
-  D:['D1','D2','D3','D4','D5','D6','D7','D8']
-};
-let seats = {...defaultSeats, ...JSON.parse(localStorage.getItem('officeSeats') || '{}')};
-let selectedSeat = null;
-let editing = false;
-const floor = document.querySelector('#floor');
-const search = document.querySelector('#search');
-const infoName = document.querySelector('#personName');
-const infoMeta = document.querySelector('#seatMeta');
-const clearBtn = document.querySelector('#clearBtn');
-const dialog = document.querySelector('#editDialog');
-const editName = document.querySelector('#editName');
-const editSeatLabel = document.querySelector('#editSeatLabel');
-let editingId = null;
-
-function renderGroups(){
-  document.querySelectorAll('.desk-group').forEach(group => {
-    group.innerHTML = groupSeats[group.dataset.group].map(id => seatButton(id)).join('');
-  });
-  document.querySelectorAll('.seat.mini').forEach(button => fillButton(button, button.dataset.seat));
-  bindSeats();
-}
-function seatButton(id){
-  const name = seats[id] || '';
-  const open = !name || name === '空位';
-  return `<button class="seat ${open?'vacant':'occupied'}" data-seat="${id}" title="${name || '空位'} · ${id}">${name || '空位'}</button>`;
-}
-function fillButton(button,id){
-  const name = seats[id] || '空位';
-  button.textContent = name;
-  button.title = `${name} · ${id}`;
-  button.classList.toggle('occupied', name !== '空位');
-  button.classList.toggle('vacant', name === '空位');
-}
-function bindSeats(){
-  document.querySelectorAll('.seat').forEach(button => button.addEventListener('click', () => {
-    const id = button.dataset.seat;
-    if(editing) return openEditor(id);
-    selectSeat(id);
-  }));
-}
-function selectSeat(id){
-  selectedSeat = id;
-  document.querySelectorAll('.seat').forEach(el => el.classList.toggle('active', el.dataset.seat === id));
-  infoName.textContent = seats[id] || '空位';
-  infoMeta.textContent = `${id} 工位 · ${id.startsWith('R') ? '独立办公室' : id[0] + ' 区'}`;
-  clearBtn.disabled = false;
-}
-function clearSelection(){
-  selectedSeat = null;
-  document.querySelectorAll('.seat').forEach(el => el.classList.remove('active','search-hit'));
-  infoName.textContent = '选择一个工位';
-  infoMeta.textContent = '搜索姓名，或直接点击地图上的工位。';
-  clearBtn.disabled = true;
-}
-function openEditor(id){
-  editingId = id;
-  editSeatLabel.textContent = `${id} 工位`;
-  editName.value = seats[id] === '空位' ? '' : seats[id] || '';
-  dialog.showModal();
-  setTimeout(() => editName.focus(), 50);
-}
-search.addEventListener('input', () => {
-  const term = search.value.trim().toLowerCase();
-  document.querySelectorAll('.seat').forEach(el => el.classList.remove('search-hit'));
-  if(!term) return clearSelection();
-  const matches = Object.entries(seats).filter(([,name]) => name && name.toLowerCase().includes(term));
-  matches.forEach(([id]) => document.querySelector(`[data-seat="${id}"]`)?.classList.add('search-hit'));
-  if(matches.length === 1){
-    selectSeat(matches[0][0]);
-    document.querySelector(`[data-seat="${matches[0][0]}"]`)?.scrollIntoView({behavior:'smooth',block:'center',inline:'center'});
-  } else {
-    infoName.textContent = matches.length ? `找到 ${matches.length} 个工位` : '未找到';
-    infoMeta.textContent = matches.length ? matches.map(([id,name])=>`${name}（${id}）`).join('、') : '请尝试其他姓名。';
-  }
-});
-document.querySelector('#editToggle').addEventListener('click', e => {
-  editing = !editing;
-  floor.classList.toggle('editing', editing);
-  e.currentTarget.textContent = editing ? '完成编辑' : '编辑工位';
-  e.currentTarget.classList.toggle('ghost', editing);
-});
-document.querySelector('#editForm').addEventListener('submit', e => {
-  if(e.submitter?.value === 'cancel') return;
-  e.preventDefault();
-  seats[editingId] = editName.value.trim() || '空位';
-  localStorage.setItem('officeSeats', JSON.stringify(seats));
-  dialog.close();
-  renderGroups();
-  selectSeat(editingId);
-});
-document.querySelector('#exportBtn').addEventListener('click', () => {
-  const data = new Blob([JSON.stringify(seats,null,2)],{type:'application/json'});
-  const url = URL.createObjectURL(data);
-  const a = document.createElement('a'); a.href=url; a.download='seats.json'; a.click();
-  URL.revokeObjectURL(url);
-});
-clearBtn.addEventListener('click', clearSelection);
-renderGroups();
+const defaults={A1:'Cecilia',A2:'Summer',A3:'Will',A4:'考赛尔',A5:'Lu Qian',B1:'Rhea',B2:'Nicole',B3:'Tycho',B4:'Ruby',B5:'Saga',B6:'Leo',B7:'Frank',B8:'空位',C1:'Leeo',C2:'Qinrui Liu',C3:'Clarie',C4:'Sylvia',C5:'Kaisen',C6:'Tycho',C7:'Eva',C8:'Bubble',D1:'Weijie Liu',D2:'空位',D3:'Sophie',D4:'空位',D5:'Wendy',D6:'空位',D7:'Fiona',D8:'空位',R1:'Cathy',R2:'Tracy'};
+let seats={...defaults,...JSON.parse(localStorage.getItem('officeSeats')||'{}')},editing=false,current=null,editId=null;
+const NS='http://www.w3.org/2000/svg',work=document.querySelector('#workstations'),finance=document.querySelector('#financeSeats');
+const groups=[{ids:['A1','A2','A3','A4','A5'],x:275,y:245,cols:3,w:112},{ids:['B1','B2','B3','B4','B5','B6','B7','B8'],x:170,y:390,cols:4,w:112},{ids:['C1','C2','C3','C4','C5','C6','C7','C8'],x:170,y:555,cols:4,w:112},{ids:['D1','D2','D3','D4','D5','D6','D7','D8'],x:170,y:720,cols:4,w:112}];
+function el(tag,attrs={},text=''){const n=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));if(text)n.textContent=text;return n}
+function chair(x,y,flip=false){const u=el('use',{href:'#chair',x,y,class:'chair'});if(flip)u.setAttribute('transform',`rotate(180 ${x+17} ${y+12})`);return u}
+function render(){work.innerHTML='';groups.forEach((grp,gi)=>{const rows=Math.ceil(grp.ids.length/grp.cols),occupied=[];grp.ids.forEach((id,i)=>{let col=i%grp.cols,row=Math.floor(i/grp.cols);if(gi===0){const layout=[[0,0],[1,0],[0,1],[1,1],[2,1]];[col,row]=layout[i]}const x=grp.x+col*grp.w,y=grp.y+row*40;const g=el('g',{'data-seat':id,class:`seat-group ${seats[id]==='空位'?'vacant':''}`,role:'button',tabindex:'0'});g.append(el('rect',{class:'desk-cell',x,y,width:grp.w,height:40}),el('circle',{class:'seat-dot',cx:x+10,cy:y+10,r:3}),el('text',{class:'seat-name',x:x+grp.w/2,y:y+22},seats[id]||'空位'));g.addEventListener('click',()=>handle(id));g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();handle(id)}});work.append(g);occupied.push({col,row})});for(let c=0;c<grp.cols;c++){if(gi!==0||c<2)work.append(chair(grp.x+c*grp.w+39,grp.y-27,true));work.append(chair(grp.x+c*grp.w+39,grp.y+rows*40+4))}});renderFinance()}
+function renderFinance(){finance.innerHTML='';[['R1',758],['R2',823]].forEach(([id,x])=>{const g=el('g',{'data-seat':id,class:`seat-group ${seats[id]==='空位'?'vacant':''}`,role:'button',tabindex:'0'});g.append(el('rect',{class:'finance-desk desk-cell',x,y:1007,width:58,height:55}),el('text',{class:'finance-name seat-name',x:x+29,y:1035},seats[id]),chair(x+12,1060),chair(x+12,978,true));g.addEventListener('click',()=>handle(id));finance.append(g)})}
+function handle(id){if(editing)return openEdit(id);select(id)}
+function select(id){current=id;document.querySelectorAll('.seat-group').forEach(g=>g.classList.toggle('active',g.dataset.seat===id));document.querySelector('#person').textContent=seats[id]||'空位';document.querySelector('#meta').textContent=`${id} 工位 · ${id.startsWith('R')?'财务室':id[0]+' 区'}`;document.querySelector('#clear').disabled=false}
+function clear(){current=null;document.querySelectorAll('.seat-group').forEach(g=>g.classList.remove('active','search-hit'));document.querySelector('#person').textContent='选择一个工位';document.querySelector('#meta').textContent='搜索姓名，或直接点击图上的桌面。';document.querySelector('#clear').disabled=true}
+const dialog=document.querySelector('#dialog'),nameInput=document.querySelector('#name');function openEdit(id){editId=id;document.querySelector('#seatId').textContent=`${id} 工位`;nameInput.value=seats[id]==='空位'?'':seats[id];dialog.showModal();setTimeout(()=>nameInput.focus(),50)}
+document.querySelector('#search').addEventListener('input',e=>{const q=e.target.value.trim().toLowerCase();document.querySelectorAll('.seat-group').forEach(g=>g.classList.remove('search-hit'));if(!q)return clear();const hits=Object.entries(seats).filter(([,n])=>n.toLowerCase().includes(q));hits.forEach(([id])=>document.querySelector(`[data-seat="${id}"]`)?.classList.add('search-hit'));document.querySelector('#person').textContent=hits.length?`找到 ${hits.length} 个工位`:'未找到';document.querySelector('#meta').textContent=hits.length?hits.map(([id,n])=>`${n}（${id}）`).join('、'):'请尝试其他姓名。';if(hits.length===1)select(hits[0][0])});
+document.querySelector('#edit').addEventListener('click',e=>{editing=!editing;document.querySelector('#officeMap').classList.toggle('editing',editing);e.currentTarget.textContent=editing?'完成编辑':'编辑工位'});document.querySelector('#form').addEventListener('submit',e=>{if(e.submitter?.value==='cancel')return;e.preventDefault();seats[editId]=nameInput.value.trim()||'空位';localStorage.setItem('officeSeats',JSON.stringify(seats));dialog.close();render();select(editId)});document.querySelector('#export').addEventListener('click',()=>{const b=new Blob([JSON.stringify(seats,null,2)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='seats.json';a.click();URL.revokeObjectURL(u)});document.querySelector('#clear').addEventListener('click',clear);
+const plants=document.querySelector('#plants');for(let r=0;r<4;r++)for(let c=0;c<8;c++){if(r<2&&c>4)continue;plants.append(el('use',{href:'#plant',x:115+c*58,y:890+r*52}))}render();

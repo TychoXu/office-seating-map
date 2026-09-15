@@ -5,22 +5,22 @@
 <defs><filter id="soft"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity=".12"/></filter></defs>
 <path class="outer" d="M160 12H888V1088H12Z"/><line class="slant" x1="160" y1="12" x2="12" y2="1088"/>
 <!-- CEO 办公室 -->
-<g id="ceo"><path class="room-wall" d="M160 12H570V168H151"/><text class="room-title" x="171" y="34">CEO 办公室</text>
+<g id="ceo"><path class="room-wall" d="M160 12H570V168H139"/><text class="room-title" x="171" y="34">CEO 办公室</text>
  <g class="ceo-seat"><image href="assets/images/desk.png" x="394" y="43" width="130" height="98" transform="rotate(180 459 92)"/><text x="459" y="111">Eric</text></g>
 </g>
 <!-- 会议室 A --> <g><path class="room-wall" d="M570 12H888V168H570"/><text class="room-title" x="584" y="34">会议室 A</text><rect class="furniture" x="700" y="42" width="68" height="100" rx="4"/><g id="meetingA"></g></g>
-<rect class="phone" x="172" y="190" width="94" height="44"/><text class="phone-text" x="219" y="218">电话亭</text><path class="room-wall" d="M730 168v162"/><path class="door" d="M888 220h-58v58M830 220a58 58 0 0 0 58 58"/><text class="room-title" x="846" y="203">入口</text>
+<rect class="phone" x="172" y="190" width="92" height="92"/><text class="phone-text" x="182" y="210">电话亭</text><path class="room-wall" d="M730 168v162"/><path class="door" d="M888 220h-58v58M830 220a58 58 0 0 0 58 58"/><text class="room-title" x="846" y="203">入口</text>
 <!-- 所有员工工位由 app.js 调用 PNG 素材生成 --> <g id="workstations"></g>
-<!-- 会议室 B / C：按原图，桌子靠右，三把椅子分别位于左、上、下 -->
+<!-- 会议室 B / C：桌子下边贴墙，左、上、右各一把椅子 -->
 <g class="right-rooms">
  <path d="M748 420H888V585H748ZM748 585H888V750H748Z"/>
- <text x="760" y="443">会议室 B</text><rect class="side-table" x="808" y="475" width="70" height="55"/>
- <image href="assets/images/armchair.png" x="775" y="489" width="25" height="25" transform="rotate(-90 787.5 501.5)"/><image href="assets/images/armchair.png" x="835" y="444" width="25" height="25"/><image href="assets/images/armchair.png" x="835" y="536" width="25" height="25" transform="rotate(180 847.5 548.5)"/>
- <text x="760" y="608">会议室 C</text><rect class="side-table" x="808" y="640" width="70" height="55"/>
- <image href="assets/images/armchair.png" x="775" y="654" width="25" height="25" transform="rotate(-90 787.5 666.5)"/><image href="assets/images/armchair.png" x="835" y="609" width="25" height="25"/><image href="assets/images/armchair.png" x="835" y="701" width="25" height="25" transform="rotate(180 847.5 713.5)"/>
+ <text x="760" y="443">会议室 B</text><rect class="side-table" x="790" y="525" width="58" height="55"/>
+ <image href="assets/images/armchair.png" x="758" y="540" width="25" height="25" transform="rotate(-90 770.5 552.5)"/><image href="assets/images/armchair.png" x="806" y="495" width="25" height="25"/><image href="assets/images/armchair.png" x="852" y="540" width="25" height="25" transform="rotate(90 864.5 552.5)"/>
+ <text x="760" y="608">会议室 C</text><rect class="side-table" x="790" y="690" width="58" height="55"/>
+ <image href="assets/images/armchair.png" x="758" y="705" width="25" height="25" transform="rotate(-90 770.5 717.5)"/><image href="assets/images/armchair.png" x="806" y="660" width="25" height="25"/><image href="assets/images/armchair.png" x="852" y="705" width="25" height="25" transform="rotate(90 864.5 717.5)"/>
 </g>
 <!-- 茶水间左右贯通，仅保留上下墙；右侧为门 -->
-<g class="pantry"><path d="M748 750H888M748 846H888"/><text x="760" y="773">茶水间（左右贯通）</text><rect class="wall-gap" x="883" y="784" width="10" height="54"/><path class="pantry-door" d="M888 786h-42v42M846 786a42 42 0 0 0 42 42"/></g>
+<g class="pantry"><path d="M748 750H888M748 750v34M748 846H888"/><text x="760" y="773">茶水间（左右贯通）</text><rect class="wall-gap" x="883" y="784" width="10" height="54"/><path class="pantry-door" d="M888 786h-42v42M846 786a42 42 0 0 0 42 42"/></g>
 <!-- 休息室与财务室 -->
 <g class="right-rooms"><path d="M748 846H888V963H748ZM748 963H888V1088H748Z"/><text x="760" y="869">休息室</text><text x="760" y="986">财务室</text></g>
 <g id="financeSeats"></g>

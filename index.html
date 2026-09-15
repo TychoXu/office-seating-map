@@ -1,6 +1,6 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>办公室工位图</title><link rel="stylesheet" href="styles.css"></head><body>
 <header><div><small>OFFICE DIRECTORY</small><h1>办公室工位图</h1></div><div class="toolbar"><label>⌕ <input id="search" placeholder="搜索中英文姓名…"></label><button id="edit">编辑工位</button><button id="export" class="secondary">导出 JSON</button><button id="exportPng" class="secondary">导出 PNG</button><button id="exportPdf" class="secondary">导出 PDF</button></div></header>
-<main><section class="card"><div class="intro"><div><h2>工位分布</h2></div><div class="legend"><span><i></i>在座</span><span><i class="empty"></i>空位</span><span><i class="picked"></i>已选中</span></div></div>
+<main><section class="card"><div class="intro"><div><h2>工位分布</h2></div><div class="intro-right"><div class="seat-stats" aria-label="座位统计"><div class="stat"><span>总座位</span><strong id="totalSeats">31</strong></div><div class="stat used"><span>已使用</span><strong id="usedSeats">27</strong></div><div class="stat vacant"><span>空余</span><strong id="vacantSeats">4</strong></div></div><div class="legend"><span><i></i>在座</span><span><i class="empty"></i>空位</span></div></div></div>
 <div class="map-scroll"><svg id="map" viewBox="0 0 900 1100" role="img" aria-label="办公室工位平面图">
 <defs><filter id="soft"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity=".12"/></filter></defs>
 <path class="outer" d="M160 12H888V1088H12Z"/><line class="slant" x1="160" y1="12" x2="12" y2="1088"/>

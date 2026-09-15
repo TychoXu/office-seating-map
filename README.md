@@ -1,22 +1,16 @@
 # 办公室工位图
 
-当前步骤完成：
+当前阶段已完成：
 
-- 所有员工工位改用 `assets/images/desk.png`
-- 所有工位椅子改用 `assets/images/armchair.png`
-- Eric/CEO 办公室使用 `assets/images/sofa.png`
-- Eric 的沙发已沿 X 轴镜像，并按参考截图布置
-- 保留搜索、点击详情、编辑姓名与导出数据功能
-
-## 素材目录
-
-```text
-assets/images/
-├── desk.png
-├── armchair.png
-└── sofa.png
-```
+- 所有员工工位继续使用 `assets/images/desk.png`
+- 财务室增加 Cathy（左）和 Tracy（右）两张工位
+- 茶水间左右贯通，仅保留上下隔墙，右侧增加门
+- 删除 CEO 办公室沙发和独立椅子，仅保留 Eric 工位
+- 删除入口处沙发
+- 调换会议室 A 左右两侧椅子的朝向
+- 会议室 B、C 按原始参考图增加靠右桌子及上、下、左三把椅子
+- 保留搜索、工位详情、姓名编辑和数据导出功能
 
 ## GitHub Pages
 
-将 ZIP 解压后上传到 GitHub 仓库根目录，在 Settings → Pages 中选择从 `main` 分支根目录部署。
+解压 ZIP 后，将文件夹内的全部文件上传到 GitHub 仓库根目录，然后在 Settings → Pages 中选择从 `main` 分支根目录部署。

@@ -1,22 +1,29 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>办公室工位图</title><link rel="stylesheet" href="styles.css"></head><body>
 <header><div><small>OFFICE DIRECTORY</small><h1>办公室工位图</h1></div><div class="toolbar"><label>⌕ <input id="search" placeholder="搜索姓名…"></label><button id="edit">编辑工位</button><button id="export" class="secondary">导出数据</button></div></header>
-<main><section class="card"><div class="intro"><div><h2>工位分布</h2><p>本阶段已替换桌子、椅子和 CEO 办公室沙发。</p></div><div class="legend"><span><i></i>在座</span><span><i class="empty"></i>空位</span><span><i class="picked"></i>已选中</span></div></div>
+<main><section class="card"><div class="intro"><div><h2>工位分布</h2><p>已调整会议室、茶水间、财务室与 CEO 办公室。</p></div><div class="legend"><span><i></i>在座</span><span><i class="empty"></i>空位</span><span><i class="picked"></i>已选中</span></div></div>
 <div class="map-scroll"><svg id="map" viewBox="0 0 900 1100" role="img" aria-label="办公室工位平面图">
 <defs><filter id="soft"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity=".12"/></filter></defs>
 <path class="outer" d="M160 12H888V1088H12Z"/><line class="slant" x1="160" y1="12" x2="12" y2="1088"/>
 <!-- CEO 办公室 -->
 <g id="ceo"><path class="room-wall" d="M160 12H570V168H151"/><text class="room-title" x="171" y="34">CEO 办公室</text>
- <image href="assets/images/armchair.png" x="177" y="55" width="58" height="58"/>
- <!-- 对 X 轴镜像：以沙发中心水平轴翻转 -->
- <image href="assets/images/sofa.png" x="212" y="90" width="190" height="78" transform="translate(0 258) scale(1 -1)"/>
  <g class="ceo-seat"><image href="assets/images/desk.png" x="394" y="43" width="130" height="98" transform="rotate(180 459 92)"/><text x="459" y="111">Eric</text></g>
 </g>
 <!-- 会议室 A --> <g><path class="room-wall" d="M570 12H888V168H570"/><text class="room-title" x="584" y="34">会议室 A</text><rect class="furniture" x="700" y="42" width="68" height="100" rx="4"/><g id="meetingA"></g></g>
 <rect class="phone" x="172" y="190" width="94" height="44"/><text class="phone-text" x="219" y="218">电话亭</text><path class="room-wall" d="M730 168v162"/><path class="door" d="M888 220h-58v58M830 220a58 58 0 0 0 58 58"/><text class="room-title" x="846" y="203">入口</text>
-<g class="entry-sofa"><rect x="760" y="350" width="105" height="42" rx="8"/><rect x="752" y="344" width="18" height="54" rx="8"/><rect x="855" y="344" width="18" height="54" rx="8"/><line x1="805" y1="351" x2="805" y2="390"/></g>
 <!-- 所有员工工位由 app.js 调用 PNG 素材生成 --> <g id="workstations"></g>
-<!-- 右侧房间保留，后续按步骤更换素材 -->
-<g class="right-rooms"><path d="M748 420H888V585H748ZM748 585H888V750H748ZM748 750H888V846H748ZM748 846H888V963H748ZM748 963H888V1088H748Z"/><text x="760" y="443">会议室 B</text><text x="760" y="608">会议室 C</text><text x="760" y="773">茶水区</text><text x="760" y="869">休息室</text><text x="760" y="986">财务室</text></g>
+<!-- 会议室 B / C：按原图，桌子靠右，三把椅子分别位于左、上、下 -->
+<g class="right-rooms">
+ <path d="M748 420H888V585H748ZM748 585H888V750H748Z"/>
+ <text x="760" y="443">会议室 B</text><rect class="side-table" x="808" y="475" width="80" height="55" rx="3"/>
+ <image href="assets/images/armchair.png" x="775" y="489" width="25" height="25" transform="rotate(-90 787.5 501.5)"/><image href="assets/images/armchair.png" x="835" y="444" width="25" height="25"/><image href="assets/images/armchair.png" x="835" y="536" width="25" height="25" transform="rotate(180 847.5 548.5)"/>
+ <text x="760" y="608">会议室 C</text><rect class="side-table" x="808" y="640" width="80" height="55" rx="3"/>
+ <image href="assets/images/armchair.png" x="775" y="654" width="25" height="25" transform="rotate(-90 787.5 666.5)"/><image href="assets/images/armchair.png" x="835" y="609" width="25" height="25"/><image href="assets/images/armchair.png" x="835" y="701" width="25" height="25" transform="rotate(180 847.5 713.5)"/>
+</g>
+<!-- 茶水间左右贯通，仅保留上下墙；右侧为门 -->
+<g class="pantry"><path d="M748 750H888M748 846H888"/><text x="760" y="773">茶水间（左右贯通）</text><rect class="wall-gap" x="883" y="784" width="10" height="54"/><path class="pantry-door" d="M888 786h-42v42M846 786a42 42 0 0 0 42 42"/></g>
+<!-- 休息室与财务室 -->
+<g class="right-rooms"><path d="M748 846H888V963H748ZM748 963H888V1088H748Z"/><text x="760" y="869">休息室</text><text x="760" y="986">财务室</text></g>
+<g id="financeSeats"></g>
 <g class="plants" id="plants"></g><rect class="collab" x="390" y="865" width="220" height="90"/><text class="collab-text" x="500" y="916">协作桌</text>
 </svg></div></section>
 <aside class="detail"><small>SEAT DETAILS</small><h2 id="person">选择一个工位</h2><p id="meta">点击地图上的桌子查看。</p><div class="preview"><img id="deskPreview" src="assets/images/desk.png" alt="桌子"><img id="chairPreview" src="assets/images/armchair.png" alt="椅子"></div><button id="clear" class="link" disabled>清除选择</button></aside></main>

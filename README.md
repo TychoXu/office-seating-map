@@ -1,35 +1,22 @@
 # 办公室工位图
 
-根据提供的办公室平面图制作的可交互静态网页，可直接部署到 GitHub Pages。
+当前步骤完成：
 
-## 本版布局
+- 所有员工工位改用 `assets/images/desk.png`
+- 所有工位椅子改用 `assets/images/armchair.png`
+- Eric/CEO 办公室使用 `assets/images/sofa.png`
+- Eric 的沙发已沿 X 轴镜像，并按参考截图布置
+- 保留搜索、点击详情、编辑姓名与导出数据功能
 
-- 左侧斜墙使用清晰黑色墙线
-- CEO 办公室：Eric 桌椅与 L 型组合沙发
-- 会议室 A：竖向长方形桌，左右各 4 把椅子
-- 会议室 B、C：各 3 把椅子
-- 入口：带扶手、靠背和坐垫分区的沙发
-- 茶水区：左右贯通，右侧有门；依次包含制冰机、饮水机、冰箱和桌台，桌台上有微波炉、咖啡机
-- 休息室：床、边桌、椅子
-- 财务室：左侧 Cathy、右侧 Tracy，两张桌子及配套椅子
-- 所有员工工位均按桌位配椅子
+## 素材目录
 
-## 功能
+```text
+assets/images/
+├── desk.png
+├── armchair.png
+└── sofa.png
+```
 
-- 搜索姓名并高亮工位
-- 点击工位查看位置
-- 编辑姓名并保存到当前浏览器
-- 导出工位 JSON 数据
-- 支持桌面与手机浏览
+## GitHub Pages
 
-## 上传到 GitHub
-
-1. 新建一个空仓库。
-2. 解压 ZIP，将文件夹内全部文件上传到仓库根目录。
-3. 前往 **Settings → Pages**。
-4. 选择 **Deploy from a branch**，分支为 `main`，目录为 `/ (root)`。
-5. 保存后等待 GitHub Pages 地址生成。
-
-## 永久修改默认姓名
-
-编辑 `app.js` 顶部的 `defaults` 数据即可。网页中的“编辑工位”只保存到当前浏览器的 `localStorage`。
+将 ZIP 解压后上传到 GitHub 仓库根目录，在 Settings → Pages 中选择从 `main` 分支根目录部署。

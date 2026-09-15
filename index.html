@@ -14,9 +14,9 @@
 <!-- 会议室 B / C：按原图，桌子靠右，三把椅子分别位于左、上、下 -->
 <g class="right-rooms">
  <path d="M748 420H888V585H748ZM748 585H888V750H748Z"/>
- <text x="760" y="443">会议室 B</text><rect class="side-table" x="808" y="475" width="80" height="55" rx="3"/>
+ <text x="760" y="443">会议室 B</text><rect class="side-table" x="808" y="475" width="70" height="55"/>
  <image href="assets/images/armchair.png" x="775" y="489" width="25" height="25" transform="rotate(-90 787.5 501.5)"/><image href="assets/images/armchair.png" x="835" y="444" width="25" height="25"/><image href="assets/images/armchair.png" x="835" y="536" width="25" height="25" transform="rotate(180 847.5 548.5)"/>
- <text x="760" y="608">会议室 C</text><rect class="side-table" x="808" y="640" width="80" height="55" rx="3"/>
+ <text x="760" y="608">会议室 C</text><rect class="side-table" x="808" y="640" width="70" height="55"/>
  <image href="assets/images/armchair.png" x="775" y="654" width="25" height="25" transform="rotate(-90 787.5 666.5)"/><image href="assets/images/armchair.png" x="835" y="609" width="25" height="25"/><image href="assets/images/armchair.png" x="835" y="701" width="25" height="25" transform="rotate(180 847.5 713.5)"/>
 </g>
 <!-- 茶水间左右贯通，仅保留上下墙；右侧为门 -->
@@ -24,7 +24,8 @@
 <!-- 休息室与财务室 -->
 <g class="right-rooms"><path d="M748 846H888V963H748ZM748 963H888V1088H748Z"/><text x="760" y="869">休息室</text><text x="760" y="986">财务室</text></g>
 <g id="financeSeats"></g>
-<g class="plants" id="plants"></g><rect class="collab" x="390" y="865" width="220" height="90"/><text class="collab-text" x="500" y="916">协作桌</text>
+<g class="plants" id="plants"></g>
+<g class="collab-set"><rect class="collab-table" x="390" y="875" width="110" height="80"/><rect class="collab-table" x="500" y="875" width="110" height="80"/><line x1="500" y1="875" x2="500" y2="955"/><image href="assets/images/armchair.png" x="431" y="842" width="28" height="28"/><image href="assets/images/armchair.png" x="431" y="962" width="28" height="28" transform="rotate(180 445 976)"/><image href="assets/images/armchair.png" x="541" y="842" width="28" height="28"/><image href="assets/images/armchair.png" x="541" y="962" width="28" height="28" transform="rotate(180 555 976)"/></g>
 </svg></div></section>
-<aside class="detail"><small>SEAT DETAILS</small><h2 id="person">选择一个工位</h2><p id="meta">点击地图上的桌子查看。</p><div class="preview"><img id="deskPreview" src="assets/images/desk.png" alt="桌子"><img id="chairPreview" src="assets/images/armchair.png" alt="椅子"></div><button id="clear" class="link" disabled>清除选择</button></aside></main>
+<aside class="detail"><small>SEAT DETAILS</small><h2 id="person">选择一个工位</h2><p id="chineseName">点击地图上的人员查看详细信息。</p><dl id="personDetails" hidden><div><dt>英文名</dt><dd id="englishFull"></dd></div><div><dt>部门</dt><dd id="department"></dd></div><div><dt>职务</dt><dd id="title"></dd></div><div><dt>工位</dt><dd id="meta"></dd></div></dl><button id="clear" class="link" disabled>清除选择</button></aside></main>
 <dialog id="dialog"><form method="dialog" id="form"><small>EDIT SEAT</small><h2>修改工位姓名</h2><p id="seatId"></p><label>姓名<input id="name" maxlength="30"></label><div><button value="cancel" class="secondary">取消</button><button value="default">保存</button></div></form></dialog><script src="app.js"></script></body></html>

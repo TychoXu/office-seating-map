@@ -1,7 +1,7 @@
 window.ORG_PEOPLE={
   Eric:{english:'Eric Zhang',chinese:'张韬',department:'',title:'CEO'},
   Summer:{english:'Summer',chinese:'袁嘉美',department:'CEO Office',title:'CEO Assistant'},
-  '考塞尔':{english:'',chinese:'考塞尔',department:'国内HR',title:'HR intern'},
+  '考赛尔':{english:'',chinese:'考赛尔',department:'国内HR',title:'HR intern',aliases:['考塞尔']},
   Frank:{english:'Frank Guo',chinese:'郭子健',department:'Global HR',title:'HR & Talent Acquisition Director'},
   Kaisen:{english:'Kaisen Wan',chinese:'宛楷森',department:'Global HR',title:'Senior Talent Acquisition Manager'},
   Will:{english:'Will Tian',chinese:'田学维',department:'Global HR',title:'Global Talent Acquisition Manager'},

@@ -1,4 +1,4 @@
-const defaults={A1:'Cecilia',A2:'Summer',A3:'Will',A4:'考塞尔',A5:'Lu Qian',E1:'Eric',B1:'Rhea',B2:'Nicole',B3:'Christina',B4:'Ruby',B5:'Saga',B6:'Leo',B7:'Frank',B8:'',C1:'Leeo',C2:'Qinrui Liu',C3:'Claire',C4:'Sylvia',C5:'Kaisen',C6:'Tycho',C7:'Eva',C8:'Bubble',D1:'Weijie Liu',D2:'空位',D3:'Sophie',D4:'Sia',D5:'Wendy',D6:'空位',D7:'Fiona',D8:'Abbey',F1:'Cathy',F2:'Tracy'};
+const defaults={A1:'Cecilia',A2:'Summer',A3:'Will',A4:'Sia',A5:'Lu Qian',E1:'Eric',B1:'Rhea',B2:'Nicole',B3:'Christina',B4:'Ruby',B5:'Saga',B6:'Leo',B7:'Frank',B8:'',C1:'Leeo',C2:'Qinrui Liu',C3:'Claire',C4:'Sylvia',C5:'Kaisen',C6:'Tycho',C7:'Eva',C8:'Bubble',D1:'Weijie Liu',D2:'Irene',D3:'Sophie',D4:'考赛尔',D5:'Wendy',D6:'Abbey',D7:'Fiona',D8:'空位',F1:'Cathy',F2:'Tracy'};
 const people=window.ORG_PEOPLE;
 const normalizePersonName=value=>(value||'').trim().toLowerCase();
 const personIndex=new Map();Object.entries(people).forEach(([key,person])=>{const aliases=[key,person.english,person.english?.split(' ')[0],person.chinese];aliases.filter(Boolean).forEach(alias=>personIndex.set(normalizePersonName(alias),person))});

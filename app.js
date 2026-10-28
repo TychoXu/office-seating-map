@@ -3,7 +3,19 @@ const people=window.ORG_PEOPLE;
 const normalizePersonName=value=>(value||'').trim().toLowerCase();
 const personIndex=new Map();Object.entries(people).forEach(([key,person])=>{const aliases=[key,person.english,person.english?.split(' ')[0],person.chinese];aliases.filter(Boolean).forEach(alias=>personIndex.set(normalizePersonName(alias),person))});
 const getPerson=name=>personIndex.get(normalizePersonName(name));
-const storageVersion='6';let savedSeats=JSON.parse(localStorage.getItem('officeSeats')||'{}');if(localStorage.getItem('officeSeatsVersion')!==storageVersion){savedSeats={};localStorage.removeItem('officeSeats');localStorage.setItem('officeSeatsVersion',storageVersion)}let seats={...defaults,...savedSeats},editing=false,editId=null;const NS='http://www.w3.org/2000/svg',root=document.querySelector('#workstations'),financeRoot=document.querySelector('#financeSeats');
+const storageVersion='6';let savedSeats=JSON.parse(localStorage.getItem('officeSeats')||'{}');if(localStorage.getItem('officeSeatsVersion')!==storageVersion){savedSeats={};localStorage.removeItem('officeSeats');localStorage.setItem('officeSeatsVersion',storageVersion)}// One-time migration: retain other locally edited seats while applying the D1/G4 move.
+const seatingMigration='officeSeatsMigration_d1Luna_g4Weijie_v1';
+if(!localStorage.getItem(seatingMigration)){
+ const previousD1=normalizePersonName(savedSeats.D1);
+ if(['weijie liu','weijie','刘维杰'].includes(previousD1)){
+  savedSeats.D1='Luna';
+  const previousG4=normalizePersonName(savedSeats.G4);
+  if(!previousG4||previousG4==='空位')savedSeats.G4='Weijie Liu';
+  localStorage.setItem('officeSeats',JSON.stringify(savedSeats));
+ }
+ localStorage.setItem(seatingMigration,'1');
+}
+let seats={...defaults,...savedSeats},editing=false,editId=null;const NS='http://www.w3.org/2000/svg',root=document.querySelector('#workstations'),financeRoot=document.querySelector('#financeSeats');
 const slots=[['A1',420,246,'top'],['A2',540,246,'top'],['A3',300,316,'bottom'],['A4',420,316,'bottom'],['A5',540,316,'bottom'],['B1',195,400,'top'],['B2',310,400,'top'],['B3',425,400,'top'],['B4',540,400,'top'],['B5',195,470,'bottom'],['B6',310,470,'bottom'],['B7',425,470,'bottom'],['C1',195,550,'top'],['C2',310,550,'top'],['C3',425,550,'top'],['C4',540,550,'top'],['C5',195,620,'bottom'],['C6',310,620,'bottom'],['C7',425,620,'bottom'],['C8',540,620,'bottom'],['D1',195,700,'top'],['D2',310,700,'top'],['D3',425,700,'top'],['D4',540,700,'top'],['D5',195,770,'bottom'],['D6',310,770,'bottom'],['D7',425,770,'bottom'],['D8',540,770,'bottom'],['G1',390,855,'top'],['G2',510,855,'top'],['G3',390,925,'bottom'],['G4',510,925,'bottom']];
 const seatIds=[...slots.map(([id])=>id),'E1','F1','F2'];const detailDialog=document.querySelector('#detailDialog');const openDetail=()=>{if(!detailDialog.open)detailDialog.showModal()};
 function updateStats(){const total=seatIds.length,used=seatIds.filter(id=>{const value=seats[id];return value&&value!=='空位'}).length;document.querySelector('#totalSeats').textContent=total;document.querySelector('#usedSeats').textContent=used;document.querySelector('#vacantSeats').textContent=total-used}

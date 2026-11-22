@@ -1,6 +1,6 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>办公室工位图</title><link rel="stylesheet" href="styles.css"></head><body>
 <header><div><small>OFFICE DIRECTORY</small><h1>办公室工位图</h1></div><div class="toolbar"><label>⌕ <input id="search" placeholder="搜索中英文姓名…"></label><button id="edit">编辑工位</button><button id="export" class="secondary">导出 JSON</button><button id="exportPng" class="secondary">导出 PNG</button><button id="exportPdf" class="secondary">导出 PDF</button></div></header>
-<main><section class="card"><div class="intro"><div><h2>工位分布</h2></div><div class="intro-right"><div class="seat-stats" aria-label="座位统计"><div class="stat"><span>总座位</span><strong id="totalSeats">35</strong></div><div class="stat used"><span>已使用</span><strong id="usedSeats">31</strong></div><div class="stat vacant"><span>空余</span><strong id="vacantSeats">4</strong></div></div><div class="legend"><span><i></i>在座</span><span><i class="empty"></i>空位</span></div></div></div>
+<main><section class="card"><div class="intro"><div><h2>工位分布</h2></div><div class="intro-right"><div class="seat-stats" aria-label="座位统计"><div class="stat"><span>总座位</span><strong id="totalSeats">37</strong></div><div class="stat used"><span>已使用</span><strong id="usedSeats">32</strong></div><div class="stat vacant"><span>空余</span><strong id="vacantSeats">5</strong></div></div><div class="legend"><span><i></i>在座</span><span><i class="empty"></i>空位</span></div></div></div>
 <div class="map-scroll"><svg id="map" viewBox="0 0 900 1100" role="img" aria-label="办公室工位平面图">
 <defs><filter id="soft"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity=".12"/></filter></defs>
 <path class="outer" d="M160 12H888V1088H12Z"/><line class="slant" x1="160" y1="12" x2="12" y2="1088"/>
@@ -11,6 +11,8 @@
 <!-- 会议室 A --> <g><path class="room-wall" d="M570 12H888V168H570"/><text class="room-title" x="584" y="34">会议室 A</text><rect class="furniture" x="700" y="42" width="68" height="100" rx="4"/><g id="meetingA"></g></g>
 <rect class="phone" x="172" y="190" width="92" height="92"/><text class="phone-text" x="182" y="210">电话亭</text><path class="room-wall" d="M730 168v162"/><path class="door" d="M888 220h-58v58M830 220a58 58 0 0 0 58 58"/><text class="room-title" x="846" y="203">入口</text>
 <!-- 所有员工工位由 app.js 调用 PNG 素材生成 --> <g id="workstations"></g>
+<!-- B 区第二排东侧（原 B8 位置）为打印机 -->
+<g class="printer" aria-label="打印机"><rect class="printer-tray" x="566" y="472" width="38" height="9" rx="1.5"/><rect x="556" y="481" width="58" height="31" rx="3"/><rect class="printer-slot" x="566" y="492" width="38" height="5" rx="1"/><text x="585" y="528">打印机</text></g>
 <!-- 会议室 B / C：桌子下边贴墙，左、上、右各一把椅子 -->
 <g class="right-rooms">
  <path d="M748 420H888V585H748ZM748 585H888V750H748Z"/>
@@ -25,7 +27,7 @@
 <g class="right-rooms"><path d="M748 846H888V963H748ZM748 963H888V1088H748Z"/><text x="760" y="869">休息室</text><text x="760" y="986">财务室</text></g>
 <g id="financeSeats"></g>
 <g class="plants" id="plants"></g>
-<!-- 原协作区已改为 G1–G4 四个工位，由 app.js 统一渲染 -->
+<!-- 原协作区已改为 G1–G6 六个工位，由 app.js 统一渲染 -->
 </svg></div></section></main>
 <dialog id="detailDialog" class="detail-dialog" aria-labelledby="person"><div class="detail-card"><button id="closeDetail" class="dialog-close" type="button" aria-label="关闭">×</button><small>SEAT DETAILS</small><h2 id="person">选择一个工位</h2><p id="chineseName">点击地图上的人员查看详细信息。</p><dl id="personDetails" hidden><div><dt>英文名</dt><dd id="englishFull"></dd></div><div><dt>性别</dt><dd id="gender"></dd></div><div><dt>部门</dt><dd id="department"></dd></div><div><dt>职务</dt><dd id="title"></dd></div><div><dt>工位</dt><dd id="meta"></dd></div></dl><button id="clear" class="secondary detail-close" disabled>关闭</button></div></dialog>
-<dialog id="dialog"><form method="dialog" id="form"><small>EDIT SEAT</small><h2>修改工位姓名</h2><p id="seatId"></p><label>姓名<input id="name" maxlength="30"></label><div><button value="cancel" class="secondary">取消</button><button value="default">保存</button></div></form></dialog><script src="people.js?v=20261028-3"></script><script src="app.js?v=20261028-3"></script><script src="export.js"></script></body></html>
+<dialog id="dialog"><form method="dialog" id="form"><small>EDIT SEAT</small><h2>修改工位姓名</h2><p id="seatId"></p><label>姓名<input id="name" maxlength="30"></label><div><button value="cancel" class="secondary">取消</button><button value="default">保存</button></div></form></dialog><script src="people.js?v=20261122-1"></script><script src="app.js?v=20261122-1"></script><script src="export.js"></script></body></html>
